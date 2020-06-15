@@ -1,0 +1,10 @@
+.title-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: 0px 4vw;
+}
+
+h3 {
+  font-weight: 300;
+}
