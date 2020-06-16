@@ -10,9 +10,16 @@ class InputList extends React.Component {
     };
   }
 
-  handleChange = event => {
+  handleChange = (event, index) => {
     event.preventDefault();
-    this.setState({ [event.target.name]: event.target.value });
+    // this.setState({ [event.target.name]: event.target.value });
+    let prosList = this.state.prosList;
+    prosList[index]['id'] = index + 1;
+    prosList[index]['value'] = event.target.value;
+
+    this.setState({ prosList }, () => {
+      console.log('proslist', this.state.prosList[index]);
+    });
   };
 
   render() {
@@ -53,9 +60,10 @@ class InputList extends React.Component {
               ></input>
             </div>
           </div> */}
-          {this.state.prosList.map(item => {
+          {this.state.prosList.map((item, index) => {
             return (
               <div
+                key={index}
                 style={{
                   display: 'flex',
                   margin: '10px 0px 20px 30px',
@@ -69,15 +77,26 @@ class InputList extends React.Component {
                     // marginTop: '20px'
                   }}
                 >
-                  <p style={{}}>1</p>
+                  <p>{index + 1}</p>
                   <input
                     style={{ marginLeft: '20px' }}
-                    onChange={this.handleChange}
-                    // value={this.state.value}
+                    onChange={event => {
+                      this.handleChange(event, index);
+                    }}
+                    value={item.value}
+                    // onFocus={() => {
+                    //   if (item.id === this.state.prosList.length) {
+                    //     let prosList = this.state.prosList;
+                    //     prosList.push({ id: index + 1, value: '' });
+                    //     this.setState({ prosList });
+                    //   }
+                    //   console.log('it!!', item, this.state.prosList.length);
+                    // }}
                     onFocus={() => {
+                      console.log('it!!!', item.id, this.state.prosList.length);
                       if (item.id === this.state.prosList.length) {
                         let prosList = this.state.prosList;
-                        prosList.push({ id: item.id + 1 });
+                        prosList.push({ id: item.id + 1, value: '' });
                         this.setState({ prosList });
                       }
                     }}
