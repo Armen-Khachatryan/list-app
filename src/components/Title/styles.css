@@ -8,3 +8,13 @@
 h3 {
   font-weight: 300;
 }
+
+.horizontal-line {
+  height: 1px;
+  background-color: gray;
+}
+
+.vertical-line {
+  width: 1px;
+  background-color: gray;
+}

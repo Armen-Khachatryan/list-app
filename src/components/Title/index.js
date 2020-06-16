@@ -8,12 +8,12 @@ const Titles = () => {
         <div>
           <h3>PROS</h3>
         </div>
-        <div style={{ width: 1, backgroundColor: 'gray' }}></div>
+        <div className='vertical-line'></div>
         <div>
           <h3>CONS</h3>
         </div>
       </div>
-      <div style={{ height: 1, backgroundColor: 'gray' }}></div>
+      <div className='horizontal-line'></div>
     </>
   );
 };
