@@ -66,7 +66,7 @@ const InputList = props => {
                     handleProsListChange(event, index);
                     let prosList = props.prosList;
                     if (item.id === props.prosList.length && item.value) {
-                      prosList.push({ id: item.id + 1, value: '' });
+                      props.addItemToPros({ id: index + 1, value: '' });
                     }
                     if (!item.value) {
                       const item = {
@@ -113,7 +113,7 @@ const InputList = props => {
                     handleConsListChange(event, index);
                     let consList = props.consList;
                     if (item.id === props.consList.length && item.value) {
-                      consList.push({ id: item.id + 1, value: '' });
+                      props.addItemToCons({ id: index + 1, value: '' });
                     }
                     if (!item.value) {
                       const item = {
