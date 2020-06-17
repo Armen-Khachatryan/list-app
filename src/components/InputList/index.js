@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { DndProvider, useDrop } from 'react-dnd';
-// import {} from 'redux'
 import { connect } from 'react-redux';
-import { addInputField, removeInputField } from '../../redux/actions/';
+import {
+  addItemToPros,
+  removeItemFromPros,
+  addItemToCons,
+  removeItemFromCons
+} from '../../redux/actions/';
 import DraggableInput from '../DragAndDrop';
 import { ItemTypes } from '../Constants';
 import './styles.css';
@@ -15,8 +19,10 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = {
-  addInputField,
-  removeInputField
+  addItemToPros,
+  removeItemFromPros,
+  addItemToCons,
+  removeItemFromCons
 };
 
 const InputList = props => {
@@ -35,10 +41,7 @@ const InputList = props => {
     prosList[index].id = index + 1;
     prosList[index].value = event.target.value;
 
-    console.log('hqiudhuhuhhhh', prosList[index].value);
-
-    // setState(prevState => ({ ...prevState, prosList }));
-    props.addInputField({ ...(index + 1), ...event.target.value });
+    setState(prevState => ({ ...prevState, prosList }));
   };
 
   const handleConsListChange = (event, index) => {
@@ -48,26 +51,6 @@ const InputList = props => {
     consList[index].value = event.target.value;
 
     setState(prevState => ({ ...prevState, consList }));
-  };
-
-  const dragProsListItem = (item, index) => {
-    let prosList = props.prosList;
-    let consList = props.consList;
-    for (let key in consList) {
-      if (!consList[key].value) {
-        consList.pop();
-      }
-    }
-    consList.push(item);
-    consList.push({ id: item.id + 1, value: '' });
-    if (prosList.length !== 1) {
-      prosList.splice(index, 1);
-      setState(prevState => ({
-        ...prevState,
-        prosList,
-        consList
-      }));
-    }
   };
 
   return (
@@ -84,47 +67,65 @@ const InputList = props => {
                     let prosList = props.prosList;
                     if (item.id === props.prosList.length && item.value) {
                       prosList.push({ id: item.id + 1, value: '' });
-                      // props.addInputField(item.id + 1, event.target.value);
                     }
                     if (!item.value) {
-                      // prosList.splice(index, 1);
-                      props.removeInputField({
-                        ...index,
-                        ...event.target.value
-                      });
+                      const item = {
+                        id: index,
+                        value: event.target.value
+                      };
+                      props.removeItemFromPros(item);
                     }
                   }}
                   onEndDrag={() => {
-                    dragProsListItem(item, index);
+                    let prosList = props.prosList;
+                    let consList = props.consList;
+                    for (let key in consList) {
+                      if (!consList[key].value) {
+                        consList.pop();
+                      }
+                    }
+                    consList.push(item);
+                    consList.push({ id: item.id + 1, value: '' });
+                    if (prosList.length !== 1) {
+                      prosList.splice(index, 1);
+                      setState(prevState => ({
+                        ...prevState,
+                        prosList,
+                        consList
+                      }));
+                    }
                   }}
                 />
               </li>
             );
           })}
         </ol>
-        {/* 
+
         <div className='vertical-line' />
 
         <ol>
-          {state.consList.map((item, index) => {
+          {props.consList.map((item, index) => {
             return (
               <li key={index}>
                 <DraggableInput
+                  value={item.value}
                   onChange={event => {
                     handleConsListChange(event, index);
-                    let consList = state.consList;
-                    if (item.id === state.consList.length && item.value) {
+                    let consList = props.consList;
+                    if (item.id === props.consList.length && item.value) {
                       consList.push({ id: item.id + 1, value: '' });
-                      setState(prevState => ({ ...prevState, consList }));
                     }
                     if (!item.value) {
-                      consList.splice(index, 1);
-                      setState(prevState => ({ ...prevState, consList }));
+                      const item = {
+                        id: index,
+                        value: event.target.value
+                      };
+                      props.removeItemFromCons(item);
                     }
                   }}
                   onEndDrag={() => {
-                    let prosList = state.prosList;
-                    let consList = state.consList;
+                    let prosList = props.prosList;
+                    let consList = props.consList;
                     for (let key in prosList) {
                       if (!prosList[key].value) {
                         prosList.pop();
@@ -141,27 +142,12 @@ const InputList = props => {
                       }));
                     }
                   }}
-                  value={item.value}
                 />
               </li>
             );
           })}
-        </ol> */}
+        </ol>
       </div>
-      {/* {isOver && (
-        <div
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            height: '100%',
-            width: '100%',
-            zIndex: 1,
-            opacity: 0.5,
-            backgroundColor: 'yellow'
-          }}
-        />
-      )} */}
     </div>
   );
 };
