@@ -31,7 +31,7 @@ const InputList = props => {
     consList: [{ id: 1, value: '' }]
   });
 
-  const [{ canDrop, isOver }, drop] = useDrop({
+  const [, drop] = useDrop({
     accept: ItemTypes.INPUT
   });
 
