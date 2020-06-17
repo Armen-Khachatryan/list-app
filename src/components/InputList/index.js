@@ -7,7 +7,7 @@ import {
   addItemToCons,
   removeItemFromCons
 } from '../../redux/actions/';
-import DraggableInput from '../DragAndDrop';
+import DraggableInput from '../DraggableInput';
 import './styles.css';
 
 function mapStateToProps(state) {
