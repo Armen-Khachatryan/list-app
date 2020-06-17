@@ -84,15 +84,11 @@ const InputList = props => {
                         consList.pop();
                       }
                     }
-                    consList.push(item);
-                    consList.push({ id: item.id + 1, value: '' });
+                    props.addItemToCons(item);
+                    props.addItemToCons({ id: item.id + 1, value: '' });
                     if (prosList.length !== 1) {
                       prosList.splice(index, 1);
-                      setState(prevState => ({
-                        ...prevState,
-                        prosList,
-                        consList
-                      }));
+                      props.removeItemFromPros({ id: index });
                     }
                   }}
                 />
@@ -131,15 +127,11 @@ const InputList = props => {
                         prosList.pop();
                       }
                     }
-                    prosList.push(item);
-                    prosList.push({ id: item.id + 1, value: '' });
+                    props.addItemToPros(item);
+                    props.addItemToPros({ id: item.id + 1, value: '' });
                     if (consList.length !== 1) {
                       consList.splice(index, 1);
-                      setState(prevState => ({
-                        ...prevState,
-                        consList,
-                        prosList
-                      }));
+                      props.removeItemFromCons({ id: index });
                     }
                   }}
                 />
