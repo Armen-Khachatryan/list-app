@@ -2,7 +2,7 @@ import React from 'react';
 import { useDrag } from 'react-dnd';
 
 const DraggableInput = props => {
-  const [{ isDragging }, drag] = useDrag({
+  const [, drag] = useDrag({
     item: { name: props.value, type: 'input' },
     collect: monitor => ({
       isDragging: !!monitor.isDragging()

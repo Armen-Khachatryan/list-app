@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { DndProvider, useDrop } from 'react-dnd';
+import React, { useState } from 'react';
+import { useDrop } from 'react-dnd';
 import { connect } from 'react-redux';
 import {
   addItemToPros,
@@ -10,12 +10,12 @@ import {
 import DraggableInput from '../DraggableInput';
 import './styles.css';
 
-function mapStateToProps(state) {
+const mapStateToProps = state => {
   return {
     prosList: state.prosList,
     consList: state.consList
   };
-}
+};
 
 const mapDispatchToProps = {
   addItemToPros,
