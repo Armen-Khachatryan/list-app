@@ -64,16 +64,11 @@ const InputList = props => {
                   value={item.value}
                   onChange={event => {
                     handleProsListChange(event, index);
-                    let prosList = props.prosList;
                     if (item.id === props.prosList.length && item.value) {
                       props.addItemToPros({ id: index + 1, value: '' });
                     }
                     if (!item.value) {
-                      const item = {
-                        id: index,
-                        value: event.target.value
-                      };
-                      props.removeItemFromPros(item);
+                      props.removeItemFromPros({ id: index });
                     }
                   }}
                   onEndDrag={() => {
@@ -107,16 +102,11 @@ const InputList = props => {
                   value={item.value}
                   onChange={event => {
                     handleConsListChange(event, index);
-                    let consList = props.consList;
                     if (item.id === props.consList.length && item.value) {
                       props.addItemToCons({ id: index + 1, value: '' });
                     }
                     if (!item.value) {
-                      const item = {
-                        id: index,
-                        value: event.target.value
-                      };
-                      props.removeItemFromCons(item);
+                      props.removeItemFromCons({ id: index });
                     }
                   }}
                   onEndDrag={() => {
