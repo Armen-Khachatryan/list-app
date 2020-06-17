@@ -8,7 +8,6 @@ import {
   removeItemFromCons
 } from '../../redux/actions/';
 import DraggableInput from '../DragAndDrop';
-import { ItemTypes } from '../Constants';
 import './styles.css';
 
 function mapStateToProps(state) {
@@ -26,13 +25,10 @@ const mapDispatchToProps = {
 };
 
 const InputList = props => {
-  const [state, setState] = useState({
-    prosList: [{ id: 1, value: '' }],
-    consList: [{ id: 1, value: '' }]
-  });
+  const [, setState] = useState({});
 
   const [, drop] = useDrop({
-    accept: ItemTypes.INPUT
+    accept: 'input'
   });
 
   const handleProsListChange = (event, index) => {
@@ -41,7 +37,7 @@ const InputList = props => {
     prosList[index].id = index + 1;
     prosList[index].value = event.target.value;
 
-    setState(prevState => ({ ...prevState, prosList }));
+    setState({}); // as the app is written without using redux-forms this is required to re-render the component!
   };
 
   const handleConsListChange = (event, index) => {
@@ -50,7 +46,7 @@ const InputList = props => {
     consList[index].id = index + 1;
     consList[index].value = event.target.value;
 
-    setState(prevState => ({ ...prevState, consList }));
+    setState({});
   };
 
   return (

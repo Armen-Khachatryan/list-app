@@ -1,5 +1,4 @@
 const consListreducer = (consList = [{ id: 1, value: '' }], action) => {
-  console.log(action);
   if (action.type === 'ADD_ITEM_TO_CONS') {
     return [...consList, action.payload];
   } else if (action.type === 'REMOVE_ITEM_FROM_CONS') {

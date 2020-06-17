@@ -1,10 +1,9 @@
 import React from 'react';
-import { ItemTypes } from './Constants';
 import { useDrag } from 'react-dnd';
 
 const Item = props => {
   const [{ isDragging }, drag] = useDrag({
-    item: { name: props.value, type: ItemTypes.INPUT },
+    item: { name: props.value, type: 'input' },
     collect: monitor => ({
       isDragging: !!monitor.isDragging()
     }),
